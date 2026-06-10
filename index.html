@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>TravelBloom | Элитные путешествия</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.5;
+            -webkit-tap-highlight-color: rgba(199, 160, 91, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7a05b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dbb46a;
+        }
+
+        /* Header с эффектом стекла */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(199, 160, 91, 0.15);
+        }
+
+        header.scrolled {
+            padding: 14px 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(25px);
+            border-bottom-color: rgba(199, 160, 91, 0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 0%, #c7a05b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #ffffff;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c7a05b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #c7a05b;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, #c7a05b 0%, #b88d4a 100%);
+            color: #0a0a0a !important;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 15px rgba(199, 160, 91, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(199, 160, 91, 0.4);
+        }
+
+        .btn-book::after {
+            display: none;
+        }
+
+        /* Hero секция с анимированным фоном */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 140px 0 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .hero-bg .gradient-1 {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(199,160,91,0.15) 0%, transparent 70%);
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .hero-bg .gradient-2 {
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(199,160,91,0.08) 0%, transparent 70%);
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.05); }
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(199, 160, 91, 0.12);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(199, 160, 91, 0.3);
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 28px;
+            color: #c7a05b;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #e0cba0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            margin-bottom: 38px;
+            max-width: 90%;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            flex: 1;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 40px 60px -30px rgba(0,0,0,0.6);
+            border: 1px solid rgba(199,160,91,0.25);
+            transform: perspective(1000px) rotateY(-2deg);
+            transition: all 0.5s;
+        }
+
+        .hero-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            box-shadow: 0 50px 70px -30px rgba(199,160,91,0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c7a05b 0%, #a87f3e 100%);
+            color: #0a0a0a;
+            box-shadow: 0 4px 15px rgba(199, 160, 91, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+box-shadow: 0 10px 25px rgba(199, 160, 91, 0.4);
+        }
+
+        .btn-outline {
+            border: 1.5px solid #c7a05b;
+            color: #c7a05b;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: rgba(199, 160, 91, 0.1);
+            transform: translateY(-3px);
+            border-color: #dbb46a;
+        }
+
+        /* Секции */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-dark {
+            background: linear-gradient(180deg, #0a0a0a 0%, #0f0e0c 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #c7a05b 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 60px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Карточки туров */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .tour-card {
+            background: rgba(20, 18, 16, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(199,160,91,0.15);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+
+        .tour-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 28px;
+            pointer-events: none;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(199,160,91,0.4);
+            box-shadow: 0 35px 50px -25px rgba(199,160,91,0.25);
+        }
+
+        .tour-card:hover::before {
+            opacity: 1;
+        }
+
+        .tour-img {
+            height: 260px;
+            overflow: hidden;
+        }
+
+        .tour-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .tour-card:hover .tour-img img {
+            transform: scale(1.1);
+        }
+
+        .tour-info {
+            padding: 28px 24px 32px;
+            position: relative;
+        }
+
+        .tour-info h3 {
+            font-size: 1.7rem;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #c7a05b;
+            margin: 16px 0;
+        }
+
+        .details-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #c7a05b;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+            transition: gap 0.3s;
+        }
+
+        .tour-card:hover .details-link {
+            gap: 12px;
+        }
+
+        /* Баннер с красивым фоном */
+        .contact-banner {
+            background: linear-gradient(135deg, #1a1510 0%, #0f0e0c 100%);
+            border-radius: 48px;
+            padding: 60px 48px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            border: 1px solid rgba(199,160,91,0.25);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+}
+
+        .contact-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(199,160,91,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .contact-banner h3 {
+            font-size: 2.3rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .whatsapp-link {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            padding: 14px 36px;
+            border-radius: 60px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Social card */
+        .social-card {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(135deg, rgba(30, 28, 26, 0.6) 0%, rgba(20, 18, 16, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 40px 45px;
+            border: 1px solid rgba(199,160,91,0.2);
+            margin-bottom: 80px;
+        }
+
+        .social-icons-group {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons-group a {
+            font-size: 2rem;
+            color: #c7a05b;
+            transition: all 0.3s;
+            display: inline-block;
+            padding: 8px;
+            line-height: 1;
+        }
+
+        .social-icons-group a:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: #e6c384;
+        }
+
+        /* Footer */
+        footer {
+            background: #060505;
+            padding: 70px 0 35px;
+            border-top: 1px solid rgba(199,160,91,0.1);
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            color: #c7a05b;
+            margin-bottom: 22px;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+        }
+
+        .footer-col a, .footer-col p {
+            color: #999;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .footer-col a:hover {
+            color: #c7a05b;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(199,160,91,0.1);
+            padding-top: 35px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Mobile */
+        .burger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+        
+        .burger-menu span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: #c7a05b;
+            margin: 6px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .burger-menu {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background: rgba(8, 8, 8, 0.98);
+backdrop-filter: blur(25px);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 32px 40px;
+                gap: 30px;
+                transition: 0.3s;
+                z-index: 1000;
+                border-left: 1px solid rgba(199,160,91,0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.6);
+                backdrop-filter: blur(4px);
+                z-index: 999;
+                display: none;
+            }
+            
+            .menu-overlay.active {
+                display: block;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-grid {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .contact-banner {
+                padding: 35px 25px;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .social-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 35px 25px;
+            }
+            
+            .social-icons-group {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .btn {
+                padding: 10px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">✦ TRAVELBLOOM ✦</div>
+            <button class="burger-menu" id="burgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Главная</a></li>
+                <li><a href="#tours" class="nav-link">Туры</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+                <li><a href="#" class="btn-book" id="bookDemoBtn">Забронировать</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+</header>
+
+<main>
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="gradient-1"></div>
+            <div class="gradient-2"></div>
+        </div>
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="badge"><i class="fas fa-globe-americas"></i> EST. 2026</div>
+                <h1>Открой мир<br>роскоши</h1>
+                <p>Эксклюзивные путешествия, лучшие отели мира и незабываемые впечатления. Путешествуйте стильно с TravelBloom.</p>
+                <div class="btn-group">
+                    <a href="#tours" class="btn btn-primary">Исследовать туры →</a>
+                    <a href="#contact" class="btn btn-outline">Связаться</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/8/27/0cb4e304233149fcbf3701e8c38fac45.max-1200x800.jpg" alt="Путешествие" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="tours" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">✦ Эксклюзивные направления ✦</h2>
+            <div class="section-sub">Выберите путешествие вашей мечты</div>
+            <div class="tours-grid">
+                <a href="https://www.travelata.ru/search/?from=msk&to=turkey&adults=2" target="_blank" class="tour-card">
+                    <div class="tour-img">
+                        <img src="https://avatars.mds.yandex.net/i?id=d7a8289f93852dcb5d692d7ed6d07046_l-5877696-images-thumbs&n=13" alt="Турция">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Жемчужина Турции</h3>
+                        <p>5* отель, всё включено</p>
+                        <div class="price">от 59 900 ₽</div>
+                        <span class="details-link">Выбрать тур →</span>
+                    </div>
+                </a>
+                <a href="https://travel.yandex.ru/hotels/maldives/" target="_blank" class="tour-card">
+                    <div class="tour-img">
+                        <img src="https://avatars.mds.yandex.net/i?id=740c676bf43f68511bf935b19ab31bd9327a4f4c-9146551-images-thumbs&n=13" alt="Мальдивы">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Мальдивская сказка</h3>
+                        <p>Виллы на воде, спа</p>
+                        <div class="price">от 199 000 ₽</div>
+                        <span class="details-link">Выбрать тур →</span>
+                    </div>
+                </a>
+                <a href="https://ganemantravel.ru/tours/?utm_medium=cpc&utm_campaign=РФ+-+Все+ключи_ПОИСК&utm_position_type=premium&utm_position=1&utm_matchtype=no&utm_placement=none&utm_network=search&utm_term=---autotargeting&utm_content=cid%7C62057449%7Cgid%7C4571155034%7Caid%7C10728129772%7Cadp%7Cno%7Cdvc%7Cdesktop%7Cpid%7C47603685036%7Crid%7C47603685036%7Cdid%7C47603685036%7Cpos%7Cpremium1%7Cadn%7Csearch%7Ccrid%7C0%7C&utm_source=eLama-yandex&etext=2202.UvoGYC2z91h64mChnrnKn2d6zHy8eTWUTORaEMYLkm10c2hycWZobHZqYXFzaHFu.3d30f13fdbbc2dd321f0bcb9fdc4be5aeb1deead&yclid=8648680029447520255/" target="_blank" class="tour-card">
+                    <div class="tour-img">
+                        <img src="https://avatars.mds.yandex.net/i?id=e6e22b45beb0337aca120d376aa33b7407e9d2c2-13216520-images-thumbs&n=13" alt="Алтай">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Алтай Мистический</h3>
+                        <p>Экотропы, рафтинг</p>
+                        <div class="price">от 44 900 ₽</div>
+                        <span class="details-link">Выбрать тур →</span>
+                    </div>
+                </a>
+                <a href="https://www.туры-в-италию.рф/ekskursii.html?etext=2202.wjSeRWZRdPhF9WeqBcCR4yFYij87n7OtFiNa9paHAdBtaHRmcnlqcmtrdXZsanVi.9b43de3c31ddb63401f27be5861fd3f6e94400ba&yclid=2800159086701445119/" target="_blank" class="tour-card">
+                    <div class="tour-img">
+                        <img src="https://avatars.mds.yandex.net/i?id=6715c3cce819774a09d8eefef6c49e5b1766aa10-5235240-images-thumbs&n=13" alt="Италия">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Итальянское Dolce Vita</h3>
+                        <p>Рим, Флоренция, Венеция</p>
+                        <div class="price">от 115 000 ₽</div>
+                        <span class="details-link">Выбрать тур →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="contact">
+        <div class="contact-banner">
+            <div>
+                <h3>✨ Готовы к приключениям?</h3>
+                <p style="color: #ccc; font-size: 0.95rem;">Напишите нам — подберём идеальный тур за 10 минут</p>
+            </div>
+            <div>
+                <a href="https://wa.me/+79227630420?text=Здравствуйте! Хочу забронировать тур" target="_blank" class="whatsapp-link">
+                    <i class="fab fa-whatsapp fa-lg"></i> Написать в WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="social-card">
+            <div>
+                <h3 style="font-size: 1.7rem; font-family: 'Cormorant Garamond'; margin-bottom: 10px;">🌍 Будьте с нами</h3>
+                <p>Следите за горячими турами и розыгрышами</p>
+            </div>
+            <div class="social-icons-group">
+                <a href="https://vk.com/away.php?to=https%3A%2F%2Fwww.instagram.com%2Fsigmapro86rus%3Figsh%3DZ2tkZWwxM3dpZDU2%26utm_source%3Dqr&utf=1" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://t.me/+79227630420" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://vk.com/id432525765" target="_blank"><i class="fab fa-vk"></i></a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-flex">
+            <div class="footer-col">
+                <h4>TRAVELBLOOM</h4>
+                <p>Лицензия туроператора № РТО 024168<br>Элитные путешествия с 2015 года</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+
+<a href="#home">Главная</a>
+                <a href="#tours">Туры</a>
+                <a href="#contact">Контакты</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <a href="tel:+79227630420">+7 (922) 763-04-20</a>
+                <a href="mailto:SuperFilin0@gmail.com">SuperFilin0@gmail.com</a>
+                <a href="#" id="callbackLink">Заказать звонок</a>
+            </div>
+            <div class="footer-col">
+                <h4>Соцсети</h4>
+                <a href="https://vk.com/away.php?to=https%3A%2F%2Fwww.instagram.com%2Fsigmapro86rus%3Figsh%3DZ2tkZWwxM3dpZDU2%26utm_source%3Dqr&utf=1">Instagram</a>
+                <a href="https://t.me/+79227630420">Telegram</a>
+                <a href="https://vk.com/id432525765">VK</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 TravelBloom — Только лучшие путешествия.
+        </div>
+    </div>
+</footer>
+
+<script>
+    const headerEl = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) headerEl.classList.add('scrolled');
+        else headerEl.classList.remove('scrolled');
+    });
+
+    const burger = document.getElementById('burgerBtn');
+    const nav = document.getElementById('navLinks');
+    const overlay = document.getElementById('menuOverlay');
+    function closeMenu() {
+        nav.classList.remove('active');
+        if(overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function openMenu() {
+        nav.classList.add('active');
+        if(overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    if(burger) {
+        burger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nav.classList.contains('active') ? closeMenu() : openMenu();
+        });
+        if(overlay) overlay.addEventListener('click', closeMenu);
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
+
+    document.getElementById('bookDemoBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('📞 Наш менеджер свяжется с вами в ближайшее время!');
+    });
+    document.getElementById('callbackLink')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('📞 Оставьте заявку на звонок: +7 (922) 763-04-20');
+    });
+</script>
+</body>
+</html>
